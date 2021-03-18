@@ -1,0 +1,5 @@
+docker build -t attarasul/netdockermysqlexternalproject .
+docker run --rm -it -p 8080:5000 attarasul/netdockermysqlexternalproject:runtime
+
+
+docker-compose up --build
