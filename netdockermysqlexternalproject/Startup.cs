@@ -21,8 +21,8 @@ namespace netdockermysqlexternalproject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<MyDBContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+            //string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
+            //services.AddDbContext<MyDBContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -37,10 +37,10 @@ namespace netdockermysqlexternalproject
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
+
             }
             app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "netdockermysqlexternalproject v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "netdockermysqlexternalproject v1"));
 
             app.UseRouting();
 
@@ -50,16 +50,21 @@ namespace netdockermysqlexternalproject
             {
                 endpoints.MapControllers();
             });
-            using (var serviceScope = app.ApplicationServices
-            .GetRequiredService<IServiceScopeFactory>()
-            .CreateScope())
-                {
-            using (var context = serviceScope.ServiceProvider.GetService<MyDBContext>())
-                {
-                    context.Database.Migrate();
-                    }
-            }
+
+
+            //using (var serviceScope = app.ApplicationServices
+            //.GetRequiredService<IServiceScopeFactory>()
+            //.CreateScope())
+            //{
+            //    using (var context = serviceScope.ServiceProvider.GetService<MyDBContext>())
+            //    {
+            //        context.Database.Migrate();
+            //    }
+            //}
+
+
+
         }
-        
+
     }
 }
